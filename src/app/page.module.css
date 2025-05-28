@@ -1,0 +1,401 @@
+.main {
+  min-height: 100vh;
+  padding-top: 70px; /* Add this to account for fixed navbar */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.navLinks a {
+  margin-left: 2rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: var(--secondary-color);
+}
+
+.hero {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.95),
+    rgba(52, 152, 219, 0.95)
+  );
+  color: white;
+  text-align: center;
+  padding: 0 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  animation: moveBokeh 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes moveBokeh {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.profileImage {
+  margin: 0 auto 2rem;
+  /* Adjust size of the circle container here */
+  width: 280px;
+  height: 280px;
+  /* Make it perfectly circular */
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.avatarImage {
+  object-fit: cover;
+  /* Adjust vertical position of image inside circle: 
+   * 50% = center of image
+   * Lower % = show more of upper part
+   * Higher % = show more of lower part
+   */
+  object-position: center 45%;
+  /* Adjust zoom level of the image:
+   * 1.0 = original size
+   * Higher number = more zoomed in
+   * Lower number = more zoomed out
+   */
+  transform: scale(1.15);
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+}
+
+.profileImage:hover .avatarImage {
+  transform: scale(1.05);
+}
+
+.fadeIn {
+  animation: fadeIn 1s ease-in;
+}
+
+.cvButton {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cvButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  min-height: auto; /* Changed from 100vh */
+  padding: 4rem 2rem; /* Reduced padding */
+  max-width: 1200px;
+  margin: 0 auto;
+  opacity: 0;
+  scroll-margin-top: 70px;
+  animation: slideIn 1s ease-in-out forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionWrapper {
+  padding: 2rem 0;
+  background: linear-gradient(
+    to right,
+    rgba(44, 62, 80, 0.05),
+    rgba(52, 152, 219, 0.05)
+  );
+}
+
+.sectionWrapper:nth-child(even) {
+  background: linear-gradient(
+    to left,
+    rgba(44, 62, 80, 0.05),
+    rgba(52, 152, 219, 0.05)
+  );
+}
+
+.section h2 {
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.experienceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.experienceCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(52, 152, 219, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+  padding: 2rem;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.experienceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.experienceCard:hover::before {
+  left: 100%;
+}
+
+.experienceCard:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 12px 40px 0 rgba(31, 38, 135, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.certificationsList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.certificationsList li {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(52, 152, 219, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.certificationsList li:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 8px 25px rgba(0,0,0,0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.contactInfo {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(52, 152, 219, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  transition: all 0.3s ease;
+  padding: 2.5rem;
+  border-radius: 16px;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.socialLinks a {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.socialLinks a:hover {
+  color: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+.emailLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.emailLink:hover {
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .navLinks {
+    margin-top: 1rem;
+  }
+
+  .navLinks a {
+    margin: 0 0.5rem;
+  }
+
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .hero {
+    padding: 0 0.5rem;
+  }
+
+  .profileImage {
+    /* Adjust circle size for mobile */
+    width: 220px;
+    height: 220px;
+  }
+
+  .avatarImage {
+    /* You can use different zoom/position for mobile if needed */
+    transform: scale(1.15);
+    object-position: center 45%;
+  }
+
+  .heroContent h1 {
+    font-size: 1.75rem;
+  }
+
+  .heroContent h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .profileImage {
+    width: 200px;
+    height: 200px;
+  }
+
+  .avatarImage {
+    transform: scale(1.1);
+    object-position: center 35%;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 1023px) {
+  .experienceGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .section {
+    padding: 5rem 2rem;
+  }
+
+  .experienceGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
