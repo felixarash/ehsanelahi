@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
@@ -12,7 +13,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <a href="/">Ehsan Elahi</a>
+        <Link href="/" className={styles.logoLink}>Ehsan Elahi</Link>
       </div>
       
       <button className={styles.menuButton} onClick={toggleMenu}>
